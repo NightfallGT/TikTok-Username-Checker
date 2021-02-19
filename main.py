@@ -18,18 +18,27 @@ class Checker:
         self.to_check = usernames
 
     async def _check(self, session: aiohttp.ClientSession, username: str) -> None:
-        async with session.get('https://www.tiktok.com/@%s' % username) as response:
-            try:
-                await response.read()
-                if response.status != 200 and len(username) > 1:
-                    print('%s[AVAILABLE] https://www.tiktok.com/@%s%s' % ('\u001b[32;1m', username, '\u001b[0m'))
-                    write_file(username)
-                else:
-                    print('%s[UNAVAILABLE] https://www.tiktok.com/@%s%s' % ('\u001b[31;1m', username, '\u001b[0m'))
+        if len(username) > 2:        
+            async with session.get('https://www.tiktok.com/@%s' % username) as response:
+                try:
+                    r = await response.text()
+                    if response.status != 200 and 'trending' in r:
+                        print('%s[AVAILABLE] https://www.tiktok.com/@%s%s' % ('\u001b[32;1m', username, '\u001b[0m'))
+                        write_file(username)
 
-            except Exception as e:
-                print('[ERROR] ' + e)
-                
+                    elif response.status == 200 and 'trending' in r:
+                        print('%s[UNAVAILABLE] https://www.tiktok.com/@%s%s' % ('\u001b[31;1m', username, '\u001b[0m'))
+
+                    else:
+                        if 'verify-ele' in r:
+                            print('[!] Page needs to verify. Failed', username)
+                            
+                        else:
+                            print('[!] No response. Most likely too many requests. Try again later', username)
+
+                except Exception as e:
+                    print('[ERROR] ' + e)
+                    
     async def start(self):
         tasks = []
         async with aiohttp.ClientSession() as session:
@@ -37,6 +46,7 @@ class Checker:
                 print('[*] Appending.. :', i)
                 tasks.append(asyncio.create_task(self._check(session, i)))
             system('cls')
+            print('Loading.. This may take awhile.')
             task = await asyncio.gather(*tasks)
             return task
 
