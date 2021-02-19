@@ -5,7 +5,7 @@
 It is a proxyless tool that checks the availablity of TikTok usernames in blazing fast
 speed. It checks if the http request status code is not ```200```. If it is, it will automatically assume that the TikTok username is not taken. 
 
-This tool can be inaccurate at times because it does not use the TikTok api. It only checks if the username's TikTok url is invalid.
+This tool can be inaccurate at times because it does not use the TikTok api. It only checks if the username's TikTok url if it is invalid.
 
 This tool is used for educational purposes only. 
 
