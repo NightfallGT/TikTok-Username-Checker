@@ -1,6 +1,8 @@
 # TikTok-Rare-Username-Checker
 ## A simple asynchronous tool that checks if a TikTok username is taken or not
 
+## WORK IN PROGRESS - CAN BE INACCURATE 
+
 ## About
 It is a proxyless tool  that checks the availablity of TikTok usernames in blazing fast
 speed. It checks if the http request status code is not ```200```. If it is, it will automatically assume that the TikTok username is not taken. 
