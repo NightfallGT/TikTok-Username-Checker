@@ -14,6 +14,7 @@ def write_file(arg: str) -> None:
         f.write(f'{arg}\n')
 
 class Checker:
+    HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36'}
     def __init__(self, usernames: List[str]):
         self.to_check = usernames
 
@@ -41,7 +42,7 @@ class Checker:
                     
     async def start(self):
         tasks = []
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(headers=self.HEADERS) as session:
             for i in self.to_check:
                 print('[*] Appending.. :', i)
                 tasks.append(asyncio.create_task(self._check(session, i)))
