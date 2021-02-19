@@ -23,3 +23,5 @@ the installation.
 
 4.  Make sure you are in the same directory as the folder you downloaded it in. Type
 ```python main.py``` in cmd
+
+5. Once it is done running, available usernames will be saved in ```hits.txt```. 
