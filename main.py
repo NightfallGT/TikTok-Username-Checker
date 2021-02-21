@@ -32,7 +32,7 @@ class Checker:
 
                     else:
                         if 'verify-ele' in r:
-                            print('[!] Page needs to verify. Failed', username)
+                            print('[!] Failed to check username. Page needs to verify.', username)
                             
                         else:
                             print('[!] No response. Most likely too many requests. Try again later', username)
