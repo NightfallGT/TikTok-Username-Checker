@@ -29,6 +29,7 @@ class Checker:
                 write_file(username)
 
     async def start(self):
+        print('Loading.. This may take awhile.')
         async with aiohttp.ClientSession() as sess:
             return await asyncio.gather(*[self._check(sess, u) for u in self.to_check])
 
